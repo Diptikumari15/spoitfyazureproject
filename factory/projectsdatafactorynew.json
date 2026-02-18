@@ -1,0 +1,9 @@
+{
+	"name": "projectsdatafactorynew",
+	"location": "southeastasia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "0b4f2120-548c-4ad4-a83f-eb3563cbf1db",
+		"tenantId": "0efb4e5e-8749-45ac-a4c9-d7249226d32c"
+	}
+}
