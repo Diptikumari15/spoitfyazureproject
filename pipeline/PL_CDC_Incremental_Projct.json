@@ -113,7 +113,7 @@
 								"source": {
 									"type": "AzureSqlSource",
 									"sqlReaderQuery": {
-										"value": "@concat('SELECT * FROM cdc.dbo_', item().table_name, '_CT WHERE __$start_lsn > CONVERT(BINARY(10), 0x', activity('Lookup_LastLSN').output.firstRow.last_lsn, ') AND __$start_lsn <= CONVERT(BINARY(10), 0x', activity('Lookup_CurrentLSN').output.firstRow.current_lsn, ') AND __$operation IN (2, 4, 1)')",
+										"value": "@concat('SELECT * FROM cdc.dbo_', item().table_name, '_CT WHERE __$start_lsn > CONVERT(BINARY(10), ''', activity('Lookup_LastLSN').output.firstRow.last_lsn, ''', 1) AND __$start_lsn <= CONVERT(BINARY(10), ''', activity('Lookup_CurrentLSN').output.firstRow.current_lsn, ''', 1) AND __$operation IN (2, 4, 1)')",
 										"type": "Expression"
 									},
 									"queryTimeout": "02:00:00",
