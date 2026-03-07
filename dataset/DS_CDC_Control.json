@@ -1,0 +1,25 @@
+{
+	"name": "DS_CDC_Control",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_azure_sql_database",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "table_name",
+				"type": "varchar"
+			},
+			{
+				"name": "last_lsn",
+				"type": "binary"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "cdc_control"
+		}
+	}
+}
