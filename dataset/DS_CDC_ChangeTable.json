@@ -14,8 +14,9 @@
 		"type": "AzureSqlTable",
 		"schema": [],
 		"typeProperties": {
+			"schema": "cdc",
 			"table": {
-				"value": "@dataset().table_name",
+				"value": "@concat('dbo_', dataset().table_name, '_CT')",
 				"type": "Expression"
 			}
 		}
