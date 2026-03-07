@@ -37,7 +37,7 @@
 								"source": {
 									"type": "AzureSqlSource",
 									"sqlReaderQuery": {
-										"value": "@concat('SELECT CONVERT(VARCHAR(50), last_lsn, 1) AS last_lsn \nFROM dbo.cdc_control \nWHERE table_name = ''', item().table_name, '''')",
+										"value": "@concat('SELECT last_lsn FROM dbo.cdc_control WHERE table_name = ''', item().table_name, '''')\n",
 										"type": "Expression"
 									},
 									"queryTimeout": "02:00:00",
@@ -72,7 +72,7 @@
 								"source": {
 									"type": "AzureSqlSource",
 									"sqlReaderQuery": {
-										"value": "@concat('SELECT CONVERT(VARCHAR(50), MAX(__$start_lsn), 1) AS current_lsn \nFROM cdc.dbo_', item().table_name, '_CT')",
+										"value": "@concat('SELECT CONVERT(VARCHAR(50), MAX(__$start_lsn), 1) AS current_lsn FROM cdc.dbo_', item().table_name, '_CT')\n",
 										"type": "Expression"
 									},
 									"queryTimeout": "02:00:00",
@@ -113,7 +113,7 @@
 								"source": {
 									"type": "AzureSqlSource",
 									"sqlReaderQuery": {
-										"value": "@concat('SELECT * FROM cdc.dbo_', item().table_name, '_CT WHERE __$start_lsn > CONVERT(BINARY(10), ''', activity('Lookup_LastLSN').output.firstRow.last_lsn, ''', 1) AND __$start_lsn <= CONVERT(BINARY(10), ''', activity('Lookup_CurrentLSN').output.firstRow.current_lsn, ''', 1) AND __$operation IN (2, 4, 1)')",
+										"value": "@concat('SELECT * FROM cdc.fn_cdc_get_all_changes_dbo_', item().table_name, '(CONVERT(BINARY(10), ''', activity('Lookup_LastLSN').output.firstRow.last_lsn, ''', 1), CONVERT(BINARY(10), ''', activity('Lookup_CurrentLSN').output.firstRow.current_lsn, ''', 1), N''all'')')\n",
 										"type": "Expression"
 									},
 									"queryTimeout": "02:00:00",
