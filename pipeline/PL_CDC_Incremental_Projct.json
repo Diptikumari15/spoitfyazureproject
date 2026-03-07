@@ -37,7 +37,7 @@
 								"source": {
 									"type": "AzureSqlSource",
 									"sqlReaderQuery": {
-										"value": "@concat('SELECT last_lsn FROM dbo.cdc_control WHERE table_name = ''', item().table_name, '''')",
+										"value": "@concat('SELECT CONVERT(VARCHAR(50), last_lsn, 1) AS last_lsn \nFROM dbo.cdc_control \nWHERE table_name = ''', item().table_name, '''')",
 										"type": "Expression"
 									},
 									"queryTimeout": "02:00:00",
@@ -72,7 +72,7 @@
 								"source": {
 									"type": "AzureSqlSource",
 									"sqlReaderQuery": {
-										"value": "@concat('SELECT MAX(__$start_lsn) AS current_lsn FROM cdc.dbo_', item().table_name, '_CT')",
+										"value": "@concat('SELECT CONVERT(VARCHAR(50), MAX(__$start_lsn), 1) AS current_lsn \nFROM cdc.dbo_', item().table_name, '_CT')",
 										"type": "Expression"
 									},
 									"queryTimeout": "02:00:00",
